@@ -143,10 +143,22 @@ func (service *ListAllTaskService) List(uid uint) serializer.Response {
 		models.DB.Model(&models.Task{}).Preload("User").Where("uid=?", uid).Where("status=?", service.Status).
 			Count(&total).Limit(service.PageSize).
 			Offset((service.PageNum - 1) * service.PageSize).Find(&tasks)
+		if total == 0 {
+			return serializer.Response{
+				Status: 400,
+				Msg:    "未查找到相应事项",
+			}
+		}
 		return serializer.BuildListResponse(tasks, uint(total))
 	}
 	models.DB.Model(&models.Task{}).Preload("User").Where("uid=?", uid).Count(&total).Limit(service.PageSize).
 		Offset((service.PageNum - 1) * service.PageSize).Find(&tasks)
+	if total == 0 {
+		return serializer.Response{
+			Status: 400,
+			Msg:    "该用户没有备忘录",
+		}
+	}
 	return serializer.BuildListResponse(tasks, uint(total))
 }
 
@@ -160,6 +172,12 @@ func (service *ReadTaskService) Read(uid uint) serializer.Response {
 	models.DB.Model(&models.Task{}).Preload("User").Where("uid=?", uid).
 		Where("content LIKE ?", "%"+service.Keyword+"%").Count(&total).
 		Limit(service.PageSize).Offset((service.PageNum - 1) * service.PageSize).Find(&tasks)
+	if total == 0 {
+		return serializer.Response{
+			Status: 400,
+			Msg:    "未查找到相应事项",
+		}
+	}
 	return serializer.BuildListResponse(tasks, uint(total))
 }
 
