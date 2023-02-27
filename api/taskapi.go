@@ -1,8 +1,8 @@
 package api
 
 import (
+	"westonline/pkg/utils"
 	"westonline/service"
-	"westonline/utilities/tokenfunc"
 
 	"github.com/gin-gonic/gin"
 )
@@ -10,7 +10,7 @@ import (
 func CreateTask(c *gin.Context) {
 	//获取传来的数据
 	var taskCreate *service.CommonTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	if err := c.ShouldBind(&taskCreate); err != nil {
 		c.JSON(400, err)
 	} else {
@@ -21,7 +21,7 @@ func CreateTask(c *gin.Context) {
 
 func UpdateTask(c *gin.Context) {
 	var taskUpdate *service.UpdateTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	if err := c.ShouldBind(&taskUpdate); err != nil {
 		c.JSON(400, err)
 	} else {
@@ -32,7 +32,7 @@ func UpdateTask(c *gin.Context) {
 
 func UpdateAllTask(c *gin.Context) {
 	var AlltaskUpdate *service.UpdateTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	//传入需要更改待办事项还是已完成事项
 	if err := c.ShouldBind(&AlltaskUpdate); err != nil {
 		c.JSON(400, err)
@@ -44,7 +44,7 @@ func UpdateAllTask(c *gin.Context) {
 
 func ReadTask(c *gin.Context) {
 	var taskRead *service.ReadTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	if err := c.ShouldBind(&taskRead); err != nil {
 		c.JSON(400, err)
 	} else {
@@ -55,7 +55,7 @@ func ReadTask(c *gin.Context) {
 
 func ListAllTask(c *gin.Context) {
 	var taskList *service.ListAllTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	if err := c.ShouldBind(&taskList); err != nil {
 		c.JSON(400, err)
 	} else {
@@ -66,7 +66,7 @@ func ListAllTask(c *gin.Context) {
 
 func DeleteTask(c *gin.Context) {
 	var taskDelete *service.DeleteTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	if err := c.ShouldBind(&taskDelete); err != nil {
 		c.JSON(400, err)
 	} else {
@@ -77,7 +77,7 @@ func DeleteTask(c *gin.Context) {
 
 func DeleteAllTask(c *gin.Context) {
 	var AlltaskDelete *service.DeleteAllTaskService
-	claim, _ := tokenfunc.ParseToken(c.GetHeader("Authorization"), "golang")
+	claim, _ := utils.ParseToken(c.GetHeader("Authorization"), "golang")
 	if err := c.ShouldBind(&AlltaskDelete); err != nil {
 		c.JSON(400, err)
 	} else {

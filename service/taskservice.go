@@ -3,7 +3,7 @@ package service
 import (
 	"time"
 	"westonline/models"
-	"westonline/utilities/serializer"
+	"westonline/pkg/serializer"
 
 	"gorm.io/gorm"
 )

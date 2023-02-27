@@ -34,7 +34,7 @@ func Routersinit(r *gin.Engine) {
 			authed.DELETE("/task/:id", api.DeleteTask)
 			//删除所有待办/已完成事务
 			//使用post请求来使用请求体传参
-			authed.POST("/tasksdelete", api.DeleteAllTask)
+			authed.POST("/tasks", api.DeleteAllTask)
 		}
 	}
 }

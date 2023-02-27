@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"time"
-	"westonline/utilities/tokenfunc"
+	"westonline/pkg/utils"
 
 	"github.com/gin-gonic/gin"
 )
@@ -16,7 +16,7 @@ func JWT() gin.HandlerFunc {
 			code = 404
 			msg = "token为空"
 		} else {
-			claim, err := tokenfunc.ParseToken(token, "golang")
+			claim, err := utils.ParseToken(token, "golang")
 			if err != nil {
 				code = 403
 				msg = "用户无权限"

@@ -2,8 +2,8 @@ package service
 
 import (
 	"westonline/models"
-	"westonline/utilities/serializer"
-	"westonline/utilities/tokenfunc"
+	"westonline/pkg/serializer"
+	"westonline/pkg/utils"
 )
 
 type Userservice struct {
@@ -60,11 +60,11 @@ func (service *Userservice) Login() serializer.Response {
 		}
 	}
 	//用户登录时签发token
-	claims := tokenfunc.Claims{
+	claims := utils.Claims{
 		Id:       user.ID,
 		Username: user.Username,
 	}
-	token, err := tokenfunc.GenerateToken(claims, "golang")
+	token, err := utils.GenerateToken(claims, "golang")
 	if err != nil {
 		return serializer.Response{
 			Status: 500,
